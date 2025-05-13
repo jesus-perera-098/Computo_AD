@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Aquí apuntas a la ruta exacta de tu carpeta docs
-          path: "Tarea #993 Elastisearch/docs"
+          path: "Carpeta_verdadera_Tarea_993_Elastisearch/docs"
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
