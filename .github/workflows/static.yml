@@ -1,0 +1,23 @@
+name: Deploy docs folder to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main      # Cambia por tu rama principal si no es `main`
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy `/docs` to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Solo publica el contenido de /docs, el resto se queda fuera
+          publish_dir: ./docs
+          # Opcional: cambia a la rama gh-pages (por defecto la crea)
+          # publish_branch: gh-pages
+
