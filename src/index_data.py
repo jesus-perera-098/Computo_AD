@@ -1,21 +1,32 @@
-from elasticsearch import Elasticsearch
 import pandas as pd
+import matplotlib.pyplot as plt
+from elasticsearch import Elasticsearch
+
+# Simulación de la conexión a Elasticsearch (pero no se usa realmente)
+es = Elasticsearch("http://localhost:9200")
 
 # Leer el CSV
 df = pd.read_csv("data/iris.csv")
 
-# Conectar a Elasticsearch (localhost:9200 por defecto)
-es = Elasticsearch("http://localhost:9200")
-
-# Crear índice si no existe
+# Crear índice simulado (no hace nada en realidad)
 index_name = "iris"
 
-if not es.indices.exists(index=index_name):
-    es.indices.create(index=index_name)
+# Simulamos la creación del índice (aunque no se hace nada)
+print(f"Conectando a Elasticsearch en {es.transport.hosts[0]['host']}...")
+print(f"Índice '{index_name}' creado (simulado)")
 
-# Subir los datos
+# Simulación de "subir" los datos
 for i, row in df.iterrows():
     doc = row.to_dict()
-    es.index(index=index_name, body=doc)
+    # Aquí simplemente mostramos el documento en lugar de enviarlo a Elasticsearch
+    print(f"Subiendo documento {i+1} a Elasticsearch... (simulado)")
 
-print("Datos cargados a Elasticsearch")
+# Generar un gráfico (de verdad, con los datos del CSV)
+df.plot(kind="scatter", x="sepal_length", y="sepal_width")  # Asegúrate de que las columnas existan
+plt.title("Gráfico de Sepal Length vs Sepal Width")
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.show()
+
+print("Datos proces
+
