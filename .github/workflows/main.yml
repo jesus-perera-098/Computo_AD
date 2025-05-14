@@ -30,12 +30,13 @@ jobs:
         git config user.email "github-actions@github.com"
 
         if [ -f docs/index.png ]; then
-          git add docs/index.png
-          git commit -m "Auto: agregar gráfica generada"
-          git push
+        git add docs/index.png
+        git commit -m "Auto: agregar gráfica generada"
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         else
-          echo "⚠️ El archivo docs/index.png no existe. No se subirá nada."
+        echo "⚠️ El archivo docs/index.png no existe. No se subirá nada."
         fi
+
 
     - name: Publicar en GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
