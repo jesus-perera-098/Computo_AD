@@ -1,30 +1,28 @@
+# src/index_data.py
 import pandas as pd
-
-print("Cargando datos desde CSV...")
-
-# Cargar datos desde archivo local
-df = pd.read_csv("data/iris.csv")
-
-print("Datos obtenidos:")
-print(df.head())
-
-# Crear carpeta si no existe
-import os
-os.makedirs("outputs", exist_ok=True)
-
-# Graficar dimensiones del sépalo
 import matplotlib.pyplot as plt
+import os
 
+# Leer el archivo CSV local
+data = pd.read_csv("data/iris.csv")
+
+# Crear la gráfica de dispersión
 plt.figure(figsize=(10, 6))
-for species in df["species"].unique():
-    subset = df[df["species"] == species]
-    plt.scatter(subset["sepal_length"], subset["sepal_width"], label=species)
+species = data["species"].unique()
+colors = ["red", "green", "blue"]
+for sp, color in zip(species, colors):
+    subset = data[data["species"] == sp]
+    plt.scatter(subset["sepal_length"], subset["sepal_width"], label=sp, color=color)
 
 plt.xlabel("Sepal Length")
 plt.ylabel("Sepal Width")
-plt.title("Iris Dataset - Sepal Dimensions")
+plt.title("Distribución de largo vs ancho de sépalos por especie")
 plt.legend()
 
-# Guardar imagen
-plt.savefig("outputs/sepal_scatter.png")
-print("Gráfico guardado en outputs/sepal_scatter.png")
+# Asegurar que la carpeta docs/ exista
+os.makedirs("docs", exist_ok=True)
+
+# Guardar la gráfica en docs/index.png
+plt.savefig("docs/index.png")
+print("✅ Gráfica guardada en docs/index.png")
+
