@@ -12,21 +12,22 @@ print("Datos cargados:")
 print(df.head())
 
 # Crear carpeta si no existe
-os.makedirs("docs", exist_ok=True)
+os.makedirs("docs", exist_ok=True)  # Asegúrate de guardar aquí para GitHub Pages
 
-# Graficar dimensiones del pétalo
-plt.figure(figsize=(10, 6))
-for species in df["species"].unique():
-    subset = df[df["species"] == species]
-    plt.scatter(subset["petal_length"], subset["petal_width"], label=species)
+# Calcular promedios por especie
+means = df.groupby("species")[["petal_length", "petal_width"]].mean()
 
-plt.xlabel("Petal Length")
-plt.ylabel("Petal Width")
-plt.title("Iris Dataset - Petal Dimensions")
-plt.legend()
+# Crear gráfico de barras
+means.plot(kind="bar", figsize=(10, 6))
+plt.title("Promedio de dimensiones del pétalo por especie")
+plt.ylabel("Longitud / Ancho del pétalo")
+plt.xlabel("Especie")
+plt.xticks(rotation=0)
+plt.legend(["Largo del pétalo", "Ancho del pétalo"])
 
-# Guardar gráfico en la carpeta `docs` con el nombre `index.png`
-plt.savefig("docs/index.png")
+# Guardar gráfico
+plt.tight_layout()
+plt.savefig("docs/index.png")  # Este archivo se publica en GitHub Pages
 print("Gráfico guardado en docs/index.png")
 
 
