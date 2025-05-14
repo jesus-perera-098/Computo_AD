@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("data/iris.csv")
 
-#consulta a Elasticsearch
+#consulta a Elasticsearchh
 print("consulta a Elasticsearch...")
 
 simulated_data = df.head(1000)  # O usar toda la data si prefieres
