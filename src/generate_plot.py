@@ -12,7 +12,7 @@ print("Datos cargados:")
 print(df.head())
 
 # Crear carpeta si no existe
-os.makedirs("outputs", exist_ok=True)
+os.makedirs("docs", exist_ok=True)
 
 # Graficar dimensiones del pétalo
 plt.figure(figsize=(10, 6))
@@ -25,7 +25,8 @@ plt.ylabel("Petal Width")
 plt.title("Iris Dataset - Petal Dimensions")
 plt.legend()
 
-# Guardar gráfico
-plt.savefig("outputs/petal_scatter.png")
-print("Gráfico guardado en outputs/petal_scatter.png")
+# Guardar gráfico en la carpeta `docs` con el nombre `index.png`
+plt.savefig("docs/index.png")
+print("Gráfico guardado en docs/index.png")
+
 
