@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # Asegura permisos de escritura en el contenido
+      pull-requests: write  # Permite manejar solicitudes de pull
+
     steps:
     - name: Clonar el repositorio
       uses: actions/checkout@v2
@@ -30,18 +34,16 @@ jobs:
         git config user.email "github-actions@github.com"
 
         if [ -f docs/index.png ]; then
-        git add docs/index.png
-        git commit -m "Auto: agregar gráfica generada"
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git add docs/index.png
+          git commit -m "Auto: agregar gráfica generada"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         else
-        echo "⚠️ El archivo docs/index.png no existe. No se subirá nada."
+          echo "⚠️ El archivo docs/index.png no existe. No se subirá nada."
         fi
-
 
     - name: Publicar en GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         personal_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
-
 
