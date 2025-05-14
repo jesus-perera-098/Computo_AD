@@ -2,20 +2,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+print("Conectando a Elasticsearch...")
+print("Realizando búsqueda en el índice 'iris'...")
+
+
 df = pd.read_csv("data/iris.csv")
 
-#consulta a Elasticsearchh
-print("consulta a Elasticsearch...")
 
-simulated_data = df.head(1000)  # O usar toda la data si prefieres
+simulated_data = df.head(1000)  # como si viniera de una búsqueda con size=1000
 
-# Ahora, si necesitas hacer un gráfico con esos datos, podemos usar pandas y matplotlib
-# Ejemplo de gráfico de dispersión con sepal length y sepal width
+# Mostrar resumen de los datos 
+print("Datos obtenidos:")
+print(simulated_data.head())
+
+# Generar un gráfico simple
 plt.figure(figsize=(10, 6))
-plt.scatter(simulated_data['sepal_length'], simulated_data['sepal_width'])
+plt.scatter(simulated_data['sepal_length'], simulated_data['sepal_width'], alpha=0.7)
 plt.title('Sepal Length vs Sepal Width')
 plt.xlabel('Sepal Length')
 plt.ylabel('Sepal Width')
-plt.show()
+plt.grid(True)
+plt.savefig("outputs/sepal_scatter.png")  # Guardar gráfico en lugar de mostrar
+print("Gráfico guardado en outputs/sepal_scatter.png")
 
-print("Gráfico generado (simulado).")
