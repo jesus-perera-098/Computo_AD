@@ -1,21 +1,21 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 df = pd.read_csv("data/iris.csv")
 
-# Simulación de conexión a Elasticsearch
-print("Conectando a Elasticsearch...")
-# Aquí se puede agregar un mensaje simulado, como si se estuviera conectando a Elasticsearch
-# En realidad, no estamos haciendo nada, solo simulamos el proceso.
+#consulta a Elasticsearch
+print("consulta a Elasticsearch...")
 
-# Crear un índice simulado (sin interactuar con Elasticsearch)
-index_name = "iris"
-print(f"Índice '{index_name}' creado.")
+simulated_data = df.head(1000)  # O usar toda la data si prefieres
 
-# Subir los datos (en realidad, solo mostramos un mensaje)
-for i, row in df.iterrows():
-    doc = row.to_dict()
-    print(f"Subiendo documento al índice {index_name}: {doc}")  # Simulamos la subida de datos
+# Ahora, si necesitas hacer un gráfico con esos datos, podemos usar pandas y matplotlib
+# Ejemplo de gráfico de dispersión con sepal length y sepal width
+plt.figure(figsize=(10, 6))
+plt.scatter(simulated_data['sepal_length'], simulated_data['sepal_width'])
+plt.title('Sepal Length vs Sepal Width')
+plt.xlabel('Sepal Length')
+plt.ylabel('Sepal Width')
+plt.show()
 
-print("Datos 'cargados' a Elasticsearch.")
-
+print("Gráfico generado (simulado).")
