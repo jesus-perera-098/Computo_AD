@@ -1,27 +1,30 @@
-import os
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Crear carpeta outputs si no existe
-os.makedirs("outputs", exist_ok=True)
+print("Cargando datos desde CSV...")
 
-print("Conectando a Elasticsearch...")
-print("Realizando búsqueda en el índice 'iris'...")
-
+# Cargar datos desde archivo local
 df = pd.read_csv("data/iris.csv")
-simulated_data = df.head(1000)
 
 print("Datos obtenidos:")
-print(simulated_data.head())
+print(df.head())
+
+# Crear carpeta si no existe
+import os
+os.makedirs("outputs", exist_ok=True)
+
+# Graficar dimensiones del sépalo
+import matplotlib.pyplot as plt
 
 plt.figure(figsize=(10, 6))
-plt.scatter(simulated_data['sepal_length'], simulated_data['sepal_width'], alpha=0.7)
-plt.title('Sepal Length vs Sepal Width')
-plt.xlabel('Sepal Length')
-plt.ylabel('Sepal Width')
-plt.grid(True)
+for species in df["species"].unique():
+    subset = df[df["species"] == species]
+    plt.scatter(subset["sepal_length"], subset["sepal_width"], label=species)
 
-# Guardar en outputs/
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.title("Iris Dataset - Sepal Dimensions")
+plt.legend()
+
+# Guardar imagen
 plt.savefig("outputs/sepal_scatter.png")
 print("Gráfico guardado en outputs/sepal_scatter.png")
-
