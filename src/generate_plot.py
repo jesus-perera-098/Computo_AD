@@ -1,29 +1,31 @@
-from elasticsearch import Elasticsearch
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
-# Conexión a Elasticsearch
-es = Elasticsearch("http://localhost:9200")
-index_name = "iris"
+print("Cargando datos desde CSV...")
 
-# Buscar todos los documentos
-res = es.search(index=index_name, body={"query": {"match_all": {}}}, size=1000)
+# Leer CSV
+df = pd.read_csv("data/iris.csv")
 
-# Extraer los datos
-data = [hit["_source"] for hit in res["hits"]["hits"]]
-df = pd.DataFrame(data)
+# Verificar que el archivo se leyó correctamente
+print("Datos cargados:")
+print(df.head())
 
-# Crear una gráfica simple
-plt.figure(figsize=(8, 5))
-for especie in df['species'].unique():
-    subset = df[df['species'] == especie]
-    plt.scatter(subset['sepal_length'], subset['sepal_width'], label=especie)
+# Crear carpeta si no existe
+os.makedirs("outputs", exist_ok=True)
 
-plt.xlabel("Sepal Length")
-plt.ylabel("Sepal Width")
-plt.title("Sepal Size por Especie")
+# Graficar dimensiones del pétalo
+plt.figure(figsize=(10, 6))
+for species in df["species"].unique():
+    subset = df[df["species"] == species]
+    plt.scatter(subset["petal_length"], subset["petal_width"], label=species)
+
+plt.xlabel("Petal Length")
+plt.ylabel("Petal Width")
+plt.title("Iris Dataset - Petal Dimensions")
 plt.legend()
 
-# Guardar imagen en la carpeta docs/
-plt.savefig("docs/index.png")
-print("Gráfica generada como docs/index.png")
+# Guardar gráfico
+plt.savefig("outputs/petal_scatter.png")
+print("Gráfico guardado en outputs/petal_scatter.png")
+
