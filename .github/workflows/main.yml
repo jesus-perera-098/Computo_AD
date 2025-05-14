@@ -24,13 +24,18 @@ jobs:
     - name: Generar gráfica
       run: python src/generate_plot.py
 
-    - name: Subir gráfica al repositorio
+    - name: Subir gráfica al repositorio si existe
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        git add docs/index.png
-        git commit -m "Auto: agregar gráfica generada"
-        git push
+
+        if [ -f docs/index.png ]; then
+          git add docs/index.png
+          git commit -m "Auto: agregar gráfica generada"
+          git push
+        else
+          echo "⚠️ El archivo docs/index.png no existe. No se subirá nada."
+        fi
 
     - name: Publicar en GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
